@@ -32,6 +32,7 @@ $result = $conn->query($sql);
                     <th>Email</th>
                     <th>Password</th>
                     <th>Gender</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,8 +49,9 @@ $result = $conn->query($sql);
                             <td><?php echo $row['email']; ?></td>
                             <td><?php echo $row['password']; ?></td>
                             <td><?php echo $row['gender']; ?></td>
-                            <td><a class="btn btn-warning" href="update.php?<?php echo $row['id'] ?>">Update</a></td>
-                            <td><a class="btn btn-warning" href="delete.php?<?php echo $row['id'] ?>">Delete</a></td>
+                            <td><a class="btn btn-warning" href="update.php?<?php echo $row['id'] ?>">Update</a>
+                                <a class="btn btn-warning" href="delete.php?<?php echo $row['id'] ?>">Delete</a>
+                            </td>
                         </tr>
                 <?php }
                 }
