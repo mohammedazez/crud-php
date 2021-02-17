@@ -1,5 +1,33 @@
 <?php
 include "config.php";
+// Jika tombol formnya di klik, maka form perlu di proses
+if (isset($_POST['submit'])) {
+    // ambil variable dari form 
+    $first_name = $_POST['firstname'];
+    $last_name = $_POST['lastname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $gender = $_POST['gender'];
+
+    // Buat Variabel dan Tulis SQL dari PhpMyAdmin lalu masukkan varibel dari form 
+    $sql = "INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`, `gender`) VALUES ('$first_name', '$last_name', '$email', '$password', '$gender')";
+
+    // Eksekusi Querynya 
+    $result = $conn->query($sql);
+
+
+    if ($result == TRUE) {
+        echo "Record berhasil dibuat";
+    } else {
+        echo "Error :" . $sql . "<br/>" . $conn->error;
+    }
+    $conn->close();
+}
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +53,8 @@ include "config.php";
             <label>Password:</label><br>
             <input type="text" name="password"><br><br>
             <label>Gender:</label><br>
-            <input type="radio" name="gender" value="male">
-            <input type="radio" name="gender" value="female"><br><br>
+            Male<input type="radio" name="gender" value="male">
+            Female<input type="radio" name="gender" value="female"><br><br>
             <input type="submit" value="submit" name="submit">
         </fieldset>
     </form>
