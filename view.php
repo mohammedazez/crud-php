@@ -12,13 +12,10 @@ $result = $conn->query($sql);
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Page</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <body>
     <div class="container">
@@ -49,8 +46,8 @@ $result = $conn->query($sql);
                             <td><?php echo $row['email']; ?></td>
                             <td><?php echo $row['password']; ?></td>
                             <td><?php echo $row['gender']; ?></td>
-                            <td><a class="btn btn-warning" href="update.php?<?php echo $row['id'] ?>">Update</a>
-                                <a class="btn btn-warning" href="delete.php?<?php echo $row['id'] ?>">Delete</a>
+                            <td><a class="btn btn-warning" href="update.php?id=<?php echo $row['id']; ?>">Update</a>
+                                <a class="btn btn-warning" href="delete.php?id=<?php echo $row['id']; ?>">Delete</a>
                             </td>
                         </tr>
                 <?php }

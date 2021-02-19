@@ -1,7 +1,30 @@
 <?php
 include "config.php";
-// Jika tombol update di form di klik maka kita perlu memproses form nya
+// Function untuk update 
+if (isset($_POST['update'])) {
+    $first_name = $_POST['firstname'];
+    $user_id = $_POST['user_id'];
+    $last_name = $_POST['lastname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $gender = $_POST['gender'];
 
+    // Tulis quernynya
+    $sql = "UPDATE `users` SET `firstname`='$first_name',`lastname`='$last_name',`email`='$email',`password`='$password',`gender`='$gender' WHERE `id`='$user_id'";
+
+    // Eksekusinya sqlnya
+    $result = $conn->query($sql);
+
+    if ($result == TRUE) {
+        echo "Record updated successfully.";
+    } else {
+        echo "Error:" . $sql . "<br>" . $conn->error;
+    }
+}
+
+
+
+// Jika tombol update di form di klik maka kita perlu memproses form nya
 // Jika variabel id di klik dan sudah terlihat di url, maka kita perlu mengedit data berdasarkan id
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
@@ -24,35 +47,30 @@ if (isset($_GET['id'])) {
         }
 ?>
 
-        <h2>User Update Form</h2>
-        <form action="" method="post">
+
+
+
+        <legend>Update Informasi personal</legend>
+        <form action="" method="POST">
             <fieldset>
-                <legend>Personal information:</legend>
-                First name:<br>
-                <input type="text" name="firstname" value="<?php echo $first_name; ?>">
-                <input type="hidden" name="user_id" value="<?php echo $id; ?>">
-                <br>
-                Last name:<br>
-                <input type="text" name="lastname" value="<?php echo $lastname; ?>">
-                <br>
-                Email:<br>
-                <input type="email" name="email" value="<?php echo $email; ?>">
-                <br>
-                Password:<br>
-                <input type="password" name="password" value="<?php echo $password; ?>">
-                <br>
-                Gender:<br>
-                <input type="radio" name="gender" value="Male" <?php if ($gender == 'Male') {
-                                                                    echo "checked";
-                                                                } ?>>Male
-                <input type="radio" name="gender" value="Female" <?php if ($gender == 'Female') {
-                                                                        echo "checked";
-                                                                    } ?>>Female
-                <br><br>
-                <input type="submit" value="Update" name="update">
+                <label>First name:</label><br>
+                <input type="text" name="firstname" value="<?php echo $first_name; ?>"><br>
+                <label>Last name:</label><br>
+                <input type="text" name="lastname" value="<?php echo $last_name; ?>"><br><br>
+                <label>Email:</label><br>
+                <input type="text" name="email" value="<?php echo $email; ?>"><br><br>
+                <label>Password:</label><br>
+                <input type="text" name="password" value="<?php echo $password; ?>"><br><br>
+                <label>Gender:</label><br>
+                Male<input type="radio" name="gender" value="male" <?php if ($gender == 'male') {
+                                                                        echo "Checked";
+                                                                    } ?>>
+                Female<input type="radio" name="gender" value="female" <?php if ($gender == 'female') {
+                                                                            echo "Checked";
+                                                                        } ?>><br><br>
+                <input type="submit" value="update" name="update">
             </fieldset>
         </form>
-
         </body>
 
         </html>
@@ -63,36 +81,3 @@ if (isset($_GET['id'])) {
     }
 }
 ?>
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update data</title>
-</head>
-
-<body>
-    <legend>Informasi personal</legend>
-    <form action="" method="POST">
-        <fieldset>
-            <label>First name:</label><br>
-            <input type="text" name="firstname"><br>
-            <label>Last name:</label><br>
-            <input type="text" name="lastname"><br><br>
-            <label>Email:</label><br>
-            <input type="text" name="email"><br><br>
-            <label>Password:</label><br>
-            <input type="text" name="password"><br><br>
-            <label>Gender:</label><br>
-            Male<input type="radio" name="gender" value="male">
-            Female<input type="radio" name="gender" value="female"><br><br>
-            <input type="submit" value="submit" name="submit">
-        </fieldset>
-    </form>
-</body>
-
-</html> -->
