@@ -2,15 +2,15 @@
 include "config.php";
 // Function untuk update 
 if (isset($_POST['update'])) {
-    $first_name = $_POST['firstname'];
+    $firstname = $_POST['firstname'];
     $user_id = $_POST['user_id'];
-    $last_name = $_POST['lastname'];
+    $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $gender = $_POST['gender'];
 
     // Tulis quernynya
-    $sql = "UPDATE `users` SET `firstname`='$first_name',`lastname`='$last_name',`email`='$email',`password`='$password',`gender`='$gender' WHERE `id`='$user_id'";
+    $sql = "UPDATE `users` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`password`='$password',`gender`='$gender' WHERE `id`='$user_id'";
 
     // Eksekusinya sqlnya
     $result = $conn->query($sql);
@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
 
     // Tulis SQLnya untuk mendapatkan data user
-    $sql = "SELECT * FROM `users` WHERE `id`=`$user_id`";
+    $sql = "SELECT * FROM `users` WHERE `id`='$user_id'";
 
     // Eksekusi SQLnya
     $result = $conn->query($sql);
@@ -39,43 +39,46 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $first_name = $row['firstname'];
-            $last_name = $row['lastname'];
+            $lastname = $row['lastname'];
             $email = $row['email'];
             $password = $row['password'];
             $gender = $row['gender'];
             $id = $row['id'];
         }
+
 ?>
 
 
 
-
-        <legend>Update Informasi personal</legend>
-        <form action="" method="POST">
+        <h2>update data kamu</h2>
+        <form action="" method="post">
             <fieldset>
+                <legend>Update Informasi personal</legend>
                 <label>First name:</label><br>
                 <input type="text" name="firstname" value="<?php echo $first_name; ?>"><br>
+                <input type="hidden" name="user_id" value="<?php echo $id; ?>">
                 <label>Last name:</label><br>
-                <input type="text" name="lastname" value="<?php echo $last_name; ?>"><br><br>
+                <input type="text" name="lastname" value="<?php echo $lastname; ?>"><br><br>
                 <label>Email:</label><br>
                 <input type="text" name="email" value="<?php echo $email; ?>"><br><br>
                 <label>Password:</label><br>
                 <input type="text" name="password" value="<?php echo $password; ?>"><br><br>
                 <label>Gender:</label><br>
-                Male<input type="radio" name="gender" value="male" <?php if ($gender == 'male') {
+                Male<input type="radio" name="gender" value="male" <?php if ($gender == 'Male') {
                                                                         echo "Checked";
                                                                     } ?>>
-                Female<input type="radio" name="gender" value="female" <?php if ($gender == 'female') {
+                Female<input type="radio" name="gender" value="female" <?php if ($gender == 'Female') {
                                                                             echo "Checked";
                                                                         } ?>><br><br>
-                <input type="submit" value="update" name="update">
+                <input type="submit" value="Update" name="update">
             </fieldset>
         </form>
         </body>
 
         </html>
 
-<?php    } else {
+<?php
+    } else {
         // Jika id tidak valid maka arakan halaman ke view.php
         header('Location: view.php');
     }
