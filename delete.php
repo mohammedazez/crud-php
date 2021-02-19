@@ -6,13 +6,13 @@ if (isset($_GET['id'])) {
     // Buat variable
     $user_id = $_GET['id'];
 
-    // Ambil data sql
+    // Ambil SQL delete di phpmyadmin
     $sql = "DELETE FROM `users` WHERE `id`='$user_id'";
 
     // Ekseskusi sqlnya 
     $result = $conn->query($sql);
 
-    // Buat conditional jika berhasil dan gagal
+    // Buat kondisi jika berhasil dan gagal
     if ($result == TRUE) {
         echo "Hapus data berhasil";
     } else {

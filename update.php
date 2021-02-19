@@ -1,7 +1,9 @@
 <?php
 include "config.php";
 // Function untuk update 
+// Target tombol update di formnya
 if (isset($_POST['update'])) {
+    // Buat variable data name di form
     $firstname = $_POST['firstname'];
     $user_id = $_POST['user_id'];
     $lastname = $_POST['lastname'];
@@ -9,12 +11,13 @@ if (isset($_POST['update'])) {
     $password = $_POST['password'];
     $gender = $_POST['gender'];
 
-    // Tulis quernynya
+    // Ambil SQL Update di phpmyadmin, ganti valuenya dengan variabel, dan dengan id
     $sql = "UPDATE `users` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`password`='$password',`gender`='$gender' WHERE `id`='$user_id'";
 
-    // Eksekusinya sqlnya
+    // Eksekusi SQLnya
     $result = $conn->query($sql);
 
+    // Buat Kondisi ekseskusi gagal atau berhasil
     if ($result == TRUE) {
         echo "Record updated successfully.";
     } else {
@@ -23,33 +26,31 @@ if (isset($_POST['update'])) {
 }
 
 
-
-// Jika tombol update di form di klik maka kita perlu memproses form nya
-// Jika variabel id di klik dan sudah terlihat di url, maka kita perlu mengedit data berdasarkan id
+// Function untuk ambil idnya
+// Jika variabel id di klik dan sudah terlihat di url, maka kita perlu mengedit data berdasarkan id.
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
 
-    // Tulis SQLnya untuk mendapatkan data user
+    // Ambil SQL Select* di phpmyadmin dengan id
     $sql = "SELECT * FROM `users` WHERE `id`='$user_id'";
 
     // Eksekusi SQLnya
     $result = $conn->query($sql);
 
-    // Jika result data nya lebih dari 0 maka eksekusi 
+    // Jika result datanya lebih dari 0 maka eksekusi dan tampilkan datanya 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $first_name = $row['firstname'];
-            $lastname = $row['lastname'];
+            $last_name = $row['lastname'];
             $email = $row['email'];
             $password = $row['password'];
             $gender = $row['gender'];
             $id = $row['id'];
         }
-
 ?>
 
 
-
+        <!-- Buat Table formnya (Ambil varibel idnya untuk value tiap form) -->
         <h2>update data kamu</h2>
         <form action="" method="post">
             <fieldset>
@@ -58,7 +59,7 @@ if (isset($_GET['id'])) {
                 <input type="text" name="firstname" value="<?php echo $first_name; ?>"><br>
                 <input type="hidden" name="user_id" value="<?php echo $id; ?>">
                 <label>Last name:</label><br>
-                <input type="text" name="lastname" value="<?php echo $lastname; ?>"><br><br>
+                <input type="text" name="lastname" value="<?php echo $last_name; ?>"><br><br>
                 <label>Email:</label><br>
                 <input type="text" name="email" value="<?php echo $email; ?>"><br><br>
                 <label>Password:</label><br>
@@ -78,8 +79,8 @@ if (isset($_GET['id'])) {
         </html>
 
 <?php
-    } else {
         // Jika id tidak valid maka arakan halaman ke view.php
+    } else {
         header('Location: view.php');
     }
 }

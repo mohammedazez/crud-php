@@ -1,6 +1,6 @@
 <?php
 include "config.php";
-// Jika tombol formnya di klik, maka form perlu di proses
+// (Target tombol formnya) Jika tombol formnya di klik, Maka data akan dibuat
 if (isset($_POST['submit'])) {
     // ambil variable dari form 
     $first_name = $_POST['firstname'];
@@ -9,13 +9,13 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $gender = $_POST['gender'];
 
-    // Buat Variabel dan Tulis SQL dari PhpMyAdmin lalu masukkan varibel dari form 
+    // Ambil SQL INSERT di phpmyadmin dan ganti value dengan varibel
     $sql = "INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`, `gender`) VALUES ('$first_name', '$last_name', '$email', '$password', '$gender')";
 
-    // Eksekusi Querynya 
+    // Eksekusi SQLnya
     $result = $conn->query($sql);
 
-
+    // Buat kondisi jika gagal dan berhasil
     if ($result == TRUE) {
         echo "Record berhasil dibuat";
     } else {
@@ -23,13 +23,10 @@ if (isset($_POST['submit'])) {
     }
     $conn->close();
 }
-
-
-
-
-
 ?>
 
+
+<!-- Buat form inputnya -->
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,13 +1,14 @@
 <?php
 include "config.php";
-// Tulis query untuk mendapatkan data dari table users
+// ambil sqlnya di phpmyadmin
 $sql = "SELECT * FROM users";
 
-// Eksekusi querynya
+// Eksekusi sqlnya
 $result = $conn->query($sql);
 
 ?>
 
+<!-- Buat tabelnya -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +36,7 @@ $result = $conn->query($sql);
             <tbody>
 
                 <?php
-                // Jika data yang di input lebih dari 0 maka eksekusi
+                // Buat kondisi Jika data yang di input lebih dari 0 maka tampilkan data dengan variabel
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                 ?>
